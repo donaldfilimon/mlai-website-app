@@ -1,7 +1,5 @@
 import data from "./research-data.json" with { type: "json" };
-import implementationData from "./implementation-data.json" with {
-  type: "json",
-};
+import implementationData from "./implementation-data.json" with { type: "json" };
 import { pages, researchPaths } from "./pages";
 
 // The collection is an immutable source-reviewed snapshot, imported from MLAI

@@ -4,7 +4,11 @@ import {
   implementationPaths,
   publicationPaths,
 } from "@/content/research";
-import { ResearchLanding, ResearchArticle } from "@/components/research-pages";
+import {
+  ImplementationStudyArticle,
+  ResearchLanding,
+  ResearchArticle,
+} from "@/components/research-pages";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -87,7 +91,7 @@ export default async function Page({ params }: Props) {
   const publication = findPublication(key);
   if (publication) return <ResearchArticle publication={publication} />;
   const study = findImplementationStudy(key);
-  if (study) return <ResearchArticle publication={study as never} />;
+  if (study) return <ImplementationStudyArticle study={study} />;
   if (key === "research") return <ResearchLanding />;
   if (key === "contact") return <ContactPage />;
   if (key === "platform") return <PlatformPage />;
