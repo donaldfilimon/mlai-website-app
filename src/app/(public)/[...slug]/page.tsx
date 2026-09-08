@@ -1,4 +1,9 @@
-import { findPublication, publicationPaths } from "@/content/research";
+import {
+  findImplementationStudy,
+  findPublication,
+  implementationPaths,
+  publicationPaths,
+} from "@/content/research";
 import { ResearchLanding, ResearchArticle } from "@/components/research-pages";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,6 +27,7 @@ export function generateStaticParams() {
   return [
     ...Object.keys(pages).filter((path) => !path.startsWith("docs/")),
     ...publicationPaths,
+    ...implementationPaths,
     "research",
     "contact",
     "knowledge",
@@ -34,9 +40,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const key = (await params).slug.join("/");
   const publication = findPublication(key);
+  const study = findImplementationStudy(key);
   return {
     title:
       publication?.title ||
+      study?.title ||
       pages[key]?.title ||
       (
         {
@@ -50,6 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       )[key],
     description:
       publication?.abstract ||
+      study?.summary ||
       pages[key]?.description ||
       (
         {
@@ -77,6 +86,8 @@ export default async function Page({ params }: Props) {
 
   const publication = findPublication(key);
   if (publication) return <ResearchArticle publication={publication} />;
+  const study = findImplementationStudy(key);
+  if (study) return <ResearchArticle publication={study as never} />;
   if (key === "research") return <ResearchLanding />;
   if (key === "contact") return <ContactPage />;
   if (key === "platform") return <PlatformPage />;
