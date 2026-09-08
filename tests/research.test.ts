@@ -26,6 +26,16 @@ const manifest = JSON.parse(
   readFileSync("docs/research-merge/source-manifest.json", "utf8"),
 );
 
+const publishedImplementationPaths = [
+  "research/implementations/six-layer-evidence-aware-platform",
+  "research/implementations/private-document-intelligence-pipeline",
+  "research/implementations/mobile-vault-cloudkit-local-fallback",
+  "research/implementations/quasar-bounded-repository-generation",
+  "research/implementations/abbey-executable-capability-ledger",
+  "research/implementations/wdbx-specimen-architecture-and-conformance",
+  "research/implementations/deterministic-research-provenance-exports",
+];
+
 describe("consolidated research collection", () => {
   it("preserves the complete source-reviewed snapshot and all attachment bytes", () => {
     expect(hash(JSON.stringify(data))).toBe(manifest.contentSha256);
@@ -58,6 +68,15 @@ describe("consolidated research collection", () => {
       expect(publicationPaths).toContain(`research/${track.overviewSlug}`);
     for (const guide of Object.values(researchGuideLinks))
       expect(pages[guide.href.slice(1)]).toBeDefined();
+  });
+  it("publishes every source-backed implementation study as a static route", () => {
+    const generated = generateStaticParams().map(({ slug }) => slug.join("/"));
+    const mapped = sitemap().map((item) => new URL(item.url).pathname);
+
+    for (const path of publishedImplementationPaths) {
+      expect(generated).toContain(path);
+      expect(mapped).toContain(`/${path}`);
+    }
   });
   it("retains bounded status, pinned evidence, dates and discoverable metadata for every publication", async () => {
     for (const p of publications) {
