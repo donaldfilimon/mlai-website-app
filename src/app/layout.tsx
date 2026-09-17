@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 // The design system stylesheet carries the tokens, fonts and component styles.
 import "@mlai/ui/styles.css";
 import "./globals.css";
@@ -24,6 +25,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
