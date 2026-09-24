@@ -7,17 +7,82 @@
 #     embedding model; adding it means provisioning uv and Python here first.
 name: check
 
+# Trusted same-repo events (push, workflow_dispatch, same-repo PRs) run on the
+# macOS arm64 self-hosted runner registered to this repository with the label
+# mlai-website-app. Fork PRs stay on GitHub-hosted runners only: never schedule
+# untrusted code on the self-hosted machine. Register the runner at
+# Settings -> Actions -> Runners; until one with these labels is online,
+# self-hosted jobs wait in the queue.
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   check:
+    name: check (self-hosted)
+    if: >
+      github.repository == 'donaldfilimon/mlai-website-app' &&
+      (github.event_name == 'push' ||
+       github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'pull_request' &&
+        github.event.pull_request.head.repo.full_name == github.repository))
+    runs-on: [self-hosted, macOS, ARM64, mlai-website-app]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # Pinned to match "packageManager" in package.json. Older Bun cannot parse
+      # this repo's lockfileVersion 2 and silently resolves a different tree.
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.0"
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Formatting
+        run: bun run format:check
+
+      - name: Research evidence
+        run: bun run verify:research
+
+      - name: Test
+        run: bun run test
+
+      # Serial, before the build. db.ts runs migrate() as a top-level import
+      # side effect, and `next build` imports it from several workers at once,
+      # so an unmigrated database races itself and dies on
+      # "table user already exists" after TypeScript has already passed.
+      # CLAUDE.md records this as a gate behaviour that has cost sessions time.
+      - name: Migrate
+        run: bun run db:migrate
+
+      - name: Build
+        run: bun run build
+
+  check-hosted:
+    name: check (GitHub-hosted, fork PRs)
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # Pinned to match "packageManager" in package.json. Older Bun cannot parse
       # this repo's lockfileVersion 2 and silently resolves a different tree.
