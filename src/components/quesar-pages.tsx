@@ -30,20 +30,18 @@ import { quesar, type QuesarRecord } from "@/content/quesar";
 /** Mock-only consent gate — labelled in UI. Not a production auth boundary. */
 const CONSENT_KEY = "quesar.consent.v3";
 
-/** /quesar — landing. Tagline is "Private AI operations." — never IWL. */
+/** /quesar — landing. Quesar is the large model. Never Intelligence Without Limits. */
 export function QuesarLanding() {
   return (
     <div className="public-container marketing-page quesar-page">
       <section className="marketing-hero">
         <div>
-          <span className="eyeline wdbx">
-            Quesar by MLAI · invite-only beta
-          </span>
+          <span className="eyeline wdbx">Quesar by MLAI</span>
           <h1>{quesar.tagline}</h1>
           <p className="hero-description">{quesar.lede}</p>
           <div className="button-row">
             <Link className="button primary" href="/quesar/consent">
-              Enter Quesar <ArrowRight size={18} />
+              Consent notes <ArrowRight size={18} />
             </Link>
             <Link className="button secondary" href="/contact">
               Request access
@@ -51,10 +49,12 @@ export function QuesarLanding() {
           </div>
         </div>
         <aside className="callout-card wdbx" aria-label="Private-ops scope">
-          <strong>Private-ops only</strong>
+          <strong>Not hosted here</strong>
           <p>
-            Invite membership, metadata-only gateway, KMS-wrapped audit. This
-            surface does not carry Abbey product naming.
+            Quesar trains and improves Abbey, Aviva, and the other assistants.
+            This page does not host the model, run training, or host assistant
+            sessions, and it does not use the tagline Intelligence Without
+            Limits.
           </p>
         </aside>
       </section>

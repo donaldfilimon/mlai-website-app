@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { QuesarLanding } from "@/components/quesar-pages";
 
 export const metadata: Metadata = {
-  title: "Quesar — Private AI operations",
+  title: "Quesar — the large model",
   description:
-    "Only invited organization members can generate; metadata-only gateway; KMS-wrapped audit you can consent to, export, or delete.",
+    "Quesar is the large model that trains and improves Abbey, Aviva, and the other assistants. This website does not host the model, run training, or host assistant sessions.",
 };
 
 export default function Page() {

@@ -291,7 +291,7 @@ export const repos: Repo[] = [
       "The integration home for MLAI's public surfaces: apps/web (site, API routes, private console), apps/mobile (Expo + CloudKit), apps/quasar, and shared contracts / design tokens.",
     summary: [
       "Public figures are always classified measured / target / reported and never interchanged. Product accents and persona colors are different axes: the ABI product is violet, the Abi persona is cyan.",
-      "Brand split (architecture freeze 2026-09-02): Quesar — private AI operations — never carries 'Intelligence Without Limits'; Abbey Bot, Abbey, and ABI own it, gated by the claims ledger.",
+      "Quesar is the large model that trains and improves Abbey, Aviva, and the other assistants. Quesar pages never carry 'Intelligence Without Limits'.",
     ],
     claims: [
       {
@@ -317,8 +317,8 @@ export const knowledge = {
       line: "Intelligence Without Limits — with a claims ledger.",
     },
     {
-      surface: "Quesar (private AI ops)",
-      line: "Private AI operations.",
+      surface: "Quesar",
+      line: "The large model that trains and improves Abbey, Aviva, and the other assistants.",
     },
     {
       surface: "Vision deck only",
@@ -410,7 +410,7 @@ export const knowledge = {
     },
     {
       term: "Quesar",
-      def: "Private AI operations console — invite-only ops surface. Tagline is 'Private AI operations.' Never carries Intelligence Without Limits.",
+      def: "The large model that trains and improves Abbey, Aviva, and the other assistants. This website does not host the model, run training, or host assistant sessions. Never carries Intelligence Without Limits.",
     },
   ],
   faq: [
@@ -427,7 +427,7 @@ export const knowledge = {
     {
       question: "Is Quesar part of IWL?",
       answer:
-        "No. Quesar is private AI operations. Intelligence Without Limits belongs to Abbey, Abbey Bot, and ABI — gated by their claims ledgers.",
+        "No. Quesar is the large model that trains and improves Abbey, Aviva, and the other assistants. Quesar pages do not use the tagline Intelligence Without Limits, and this website does not host the model or run training.",
     },
     {
       question: "How do personas relate to product accents?",
