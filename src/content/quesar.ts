@@ -1,7 +1,8 @@
-/** Quesar — private AI operations. Brand split 2026-09-02: this surface NEVER carries "Intelligence Without Limits". */
+/** Quesar is the large model. This surface NEVER carries "Intelligence Without Limits". */
 export const quesar = {
-  tagline: "Private AI operations.",
-  lede: "Only invited organization members can generate. Traffic crosses a metadata-only gateway — no payload logging, no user email to the provider — and becomes a KMS-wrapped audit you can consent to, export, or delete.",
+  tagline:
+    "The large model that trains and improves Abbey, Aviva, and the other assistants.",
+  lede: "Quesar is the large model that trains and improves Abbey, Aviva, and the other assistants. This website does not host the model, run training, or host assistant sessions.",
   pillars: [
     {
       title: "Membership, not signup",
@@ -97,13 +98,13 @@ export const quesar = {
   pilot: {
     eyeline: "Pilot",
     title: "Request a private-ops pilot",
-    body: "Invite-only private AI operations for teams that need membership, a metadata-only gateway, and a KMS-wrapped audit. No public signup.",
+    body: "Quesar is the large model that trains and improves Abbey, Aviva, and the other assistants. This page does not host the model, run training, or host assistant sessions. No public signup.",
     ctaLabel: "Request pilot",
     ctaHref: "/contact",
     nonClaims: [
       "Not a compliance certification",
       "No QPS, latency SLA, or TAM figures claimed here",
-      "Does not carry Abbey product naming or Intelligence Without Limits",
+      "Does not use the tagline Intelligence Without Limits",
     ],
   },
 } as const;
